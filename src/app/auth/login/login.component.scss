@@ -3,7 +3,10 @@
   justify-content: center;
 }
 
-mat-form-field {
-  width: 400px;
-  margin-bottom: 0.3em;
+form {
+  min-width: 80%;
+
+  @media (min-width: 560px) {
+    min-width: 40%;
+  }
 }

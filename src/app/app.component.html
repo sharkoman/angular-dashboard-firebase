@@ -1,1 +1,26 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav [(opened)]="opened">
+    <mat-nav-list role="list">
+      <a (click)="sidenav.close()" routerLink="/" mat-list-item>
+        <mat-icon matListIcon>bookmarks</mat-icon>
+          Courses
+      </a>
+      <a (click)="sidenav.close()" routerLink="/" mat-list-item>
+        <mat-icon matListIcon>face</mat-icon>
+          Students
+      </a>
+      <mat-list-item (click)="sidenav.close()">
+        <button mat-icon-button>
+          <mat-icon>power_settings_new</mat-icon>
+          Logout
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <app-toolbar (sideNavToggle)="toggleSidebar($event)"></app-toolbar>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
