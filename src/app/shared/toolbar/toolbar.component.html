@@ -11,19 +11,19 @@
 
       <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul class="toolbar-navigation" fxLayout fxLayoutGap="10px">
-          <li>
+          <li *ngIf="isAuth">
             <a routerLink="/">Home</a>
           </li>
-          <li>
+          <li *ngIf="isAuth">
             <a routerLink="/">Courses</a>
           </li>
-          <li>
+          <li *ngIf="isAuth">
             <a routerLink="/">Students</a>
           </li>
-          <li>
+          <li *ngIf="isAuth">
             <a routerLink="/">Logout</a>
           </li>
-          <li>
+          <li *ngIf="!isAuth">
             <a routerLink="/">Login</a>
           </li>
         </ul>

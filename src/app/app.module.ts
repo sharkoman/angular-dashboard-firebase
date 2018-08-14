@@ -13,16 +13,19 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { AuthService } from './auth/auth.service';
+import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SidenavListComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -31,7 +34,7 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
