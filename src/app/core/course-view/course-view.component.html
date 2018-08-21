@@ -1,0 +1,36 @@
+<h2>
+  {{ pageTitle }}
+</h2>
+
+<form fxLayout="column" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <mat-form-field>
+      <input ngModel type="text" [readonly]="mode === 'update'" name="id" id="id" matInput placeholder="ID" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input ngModel type="text" name="name" id="name" matInput placeholder="Name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea ngModel matInput placeholder="Description" name="description" id="description" cols="30" rows="10"></textarea>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="mode === 'update'">
+      <mat-select ngModel name="students" id="students" placeholder="students" multiple>
+          <mat-option *ngFor="let student of courseViewed.students" [value]="student.name">{{student.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="mode === 'new'">
+      <mat-select ngModel name="students" id="students" placeholder="students" multiple>
+          <mat-option [value]="eg">egypt</mat-option>
+          <mat-option [value]="en">england</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button [disabled]="!f.valid" type="submit" mat-raised-button color="primary">
+      {{ mode === 'new' ? 'Save' : 'Update' }}
+    </button>
+
+</form>

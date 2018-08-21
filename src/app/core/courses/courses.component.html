@@ -1,0 +1,39 @@
+<div class="container">
+  <section>
+    <button mat-button color="primary" (click)="addCourse()">Add New Course</button>
+    <h2>Availiable Courses</h2>
+
+    <mat-form-field>
+      <input (keyup)="doFilter($event.target.value)" type="text" matInput placeholder="Filter Courses...">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let course"> {{course.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let course"> {{course.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let course">
+          <button (click)="editCourse(course.id)" mat-button color="primary">Edit</button>
+          <button mat-button color="warn">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+
+    </table>
+
+    <mat-paginator #paginator [pageSize]="1" [pageSizeOptions]="[5, 10, 15]">
+
+    </mat-paginator>
+
+  </section>
+</div> <!-- container -->

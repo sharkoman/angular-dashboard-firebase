@@ -7,22 +7,22 @@ import { Subscription } from 'rxjs';
   templateUrl: './sidenav-list.component.html',
   styleUrls: ['./sidenav-list.component.scss']
 })
-export class SidenavListComponent implements OnInit, OnDestroy {
+export class SidenavListComponent implements OnInit {
   private authSubscription = new Subscription();
-  authState:boolean = false;
+  isAuth:boolean = false;
   constructor(private authService :AuthService) { }
 
   ngOnInit() {
     this.authSubscription = this.authService.authChange.subscribe(
       authStatus => {
-        this.authState = authStatus;
+        this.isAuth = authStatus;
       }
     );
   }
 
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.authSubscription.unsubscribe();
+  // }
 
   @Output() closeSidebar = new EventEmitter();
 
@@ -34,7 +34,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
     this.authService.logOut();
     this.authSubscription = this.authService.authChange.subscribe(
       authStatus => {
-        this.authState = authStatus;
+        this.isAuth = authStatus;
       }
     );
     this.closeSidebar.emit(false);

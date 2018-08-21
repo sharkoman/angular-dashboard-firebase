@@ -1,3 +1,22 @@
-<p>
-  dashboard works!
-</p>
+<section>
+<div class="container">
+
+  <div fxLayout="row unwrap" fxLayoutGap="15px">
+    <div fxFlex="calc(15% - 15px)">
+      <nav class="sidenav">
+        <div>
+          <a mat-button routerLink="courses">courses</a>
+        </div>
+        <div>
+          <a mat-button routerLink="students">students</a>
+        </div>
+      </nav>
+    </div>
+    <div fxFlex="calc(85% - 15px)">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
+
+</section>

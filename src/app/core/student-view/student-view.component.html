@@ -1,0 +1,27 @@
+<h2>{{ (studentObjId === 'new') ? 'Add New Student:' : 'Update Student:' }}</h2>
+
+<form #f="ngForm" fxLayout="column" (ngSubmit)="onSubmit(f)">
+  <mat-form-field>
+    <input ngModel matInput type="text" [readonly]="studentObjId !== 'new'" name="id" id="id" matInput placeholder="ID" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input ngModel matInput type="text" name="name" id="name" matInput placeholder="Name" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="email" matInput name="email" id="email" placeholder="Email" email required ngModel>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input ngModel matInput type="number" name="age" id="age" placeholder="Age">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input ngModel matInput type="url" name="image" id="image" placeholder="Image URL">
+  </mat-form-field>
+
+  <div>
+    <button type="submit" color="primary" [disabled]="!f.valid" mat-raised-button>{{ (studentObjId === 'new') ? 'Save' : 'Update' }}</button>
+  </div>
+</form>

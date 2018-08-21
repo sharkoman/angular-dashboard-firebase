@@ -30,4 +30,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.sideNavToggle.emit(!this.toggleSidebar);
   }
 
+  logout() {
+    this.authService.logOut();
+    this.authSubscription = this.authService.authChange.subscribe(
+      authStatus => {
+        this.isAuth = authStatus;
+      }
+    );
+  }
+
 }

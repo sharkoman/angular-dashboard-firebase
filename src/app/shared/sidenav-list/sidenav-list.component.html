@@ -1,19 +1,19 @@
 <mat-nav-list role="list">
-  <a *ngIf="authState" (click)="closeSideNav()" routerLink="/" mat-list-item>
+  <a *ngIf="isAuth" (click)="closeSideNav()" routerLink="/" mat-list-item>
     <mat-icon matListIcon>bookmarks</mat-icon>
       Courses
   </a>
-  <a *ngIf="authState" (click)="closeSideNav()" routerLink="/" mat-list-item>
+  <a *ngIf="isAuth" (click)="closeSideNav()" routerLink="/" mat-list-item>
     <mat-icon matListIcon>face</mat-icon>
       Students
   </a>
-  <mat-list-item *ngIf="authState" (click)="logout()">
+  <mat-list-item *ngIf="isAuth" (click)="logout()">
     <button mat-icon-button>
       <mat-icon>power_settings_new</mat-icon>
       Logout
     </button>
   </mat-list-item>
-  <mat-list-item *ngIf="!authState" (click)="closeSideNav()">
+  <mat-list-item *ngIf="!isAuth" (click)="closeSideNav()">
     <button mat-icon-button>
       <mat-icon>power_settings_new</mat-icon>
       Login
