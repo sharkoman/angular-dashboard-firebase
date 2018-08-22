@@ -1,12 +1,23 @@
+
+
 .login-form {
   display: flex;
   justify-content: center;
+  background: white;
+  padding: 1em 2em;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.19);
+  width: 80%;
+
+  @media (min-width: 768px) {
+    width: 330px;
+  }
 }
 
 form {
   min-width: 80%;
 
   @media (min-width: 560px) {
-    min-width: 40%;
+    min-width: 100%;
   }
 }

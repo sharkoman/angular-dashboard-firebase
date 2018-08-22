@@ -15,6 +15,10 @@ export class StudentsComponent implements OnInit, OnDestroy {
   dataSource: Student[] = [];
   studentSubject: Subscription;
   columnsToDisplay = ['id', 'name', 'email', 'age', 'image', 'action'];
+  filterArray: Student[];
+  studentImage = {
+    backgroundImage: "url('https://thumbs.dreamstime.com/b/profile-icon-male-avatar-portrait-casual-person-silhouette-face-flat-design-vector-illustration-58249394.jpg')",
+  }
 
   constructor(
     private studentService: StudentService,
@@ -24,12 +28,22 @@ export class StudentsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataSource = this.studentService.getStudents();
     this.studentSubject = this.studentService.studentDeleted.subscribe(
-      r => this.dataSource = r.slice()
+      r => {
+        this.dataSource = r.slice();
+        this.filterArray = this.dataSource;
+      }
     );
+    this.filterArray = this.dataSource;
   }
 
   ngOnDestroy() {
     this.studentSubject.unsubscribe();
+  }
+
+  doFilter(filterValue: string) {
+    this.filterArray = this.dataSource.filter(el => {
+      return el.name.trim().toLowerCase().match(filterValue);
+    });
   }
 
   addStudent() {
@@ -48,7 +62,6 @@ export class StudentsComponent implements OnInit, OnDestroy {
       width: '450px',
       data: {studentName: studentObj.name, studentID: studentObj.id}
     });
-
   }
 
 }
