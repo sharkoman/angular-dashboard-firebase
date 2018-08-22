@@ -26,10 +26,12 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      const studentObj = this.studentService.getStudentById(this.studentObjId);
-      this.studentForm.setValue(studentObj);
-    }, 100);
+    if(this.studentObjId !== 'new') {
+      setTimeout(() => {
+        const studentObj = this.studentService.getStudentById(this.studentObjId);
+        this.studentForm.setValue(studentObj);
+      }, 100);
+    }
   }
 
   onSubmit(f: NgForm) {
@@ -38,7 +40,8 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
       this.studentService.addStudent(f.value);
       this.router.navigate(['/dashboard', 'students']);
     } else {
-
+      this.studentService.updateStudent(this.studentObjId, f.value);
+      this.router.navigate(['/dashboard', 'students']);
     }
   }
 

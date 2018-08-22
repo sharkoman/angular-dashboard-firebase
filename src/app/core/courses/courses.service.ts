@@ -1,4 +1,5 @@
 import { Course } from './course.model';
+import { Subject } from 'rxjs';
 
 export class CoursesService {
   private availableCourses: Course[] = [
@@ -6,31 +7,17 @@ export class CoursesService {
       id: '01-react',
       name: 'React essential trianing',
       description: 'react course for beginners',
-      students: [
-        {
-          id: 'st01',
-          name: 'sherif ahmed',
-          age: 32,
-          email: 'sharko@test.com',
-          image: ''
-        }
-      ]
+      students: ['st01']
     },
     {
       id: '01-angular',
       name: 'Angular essential trianing',
       description: 'angular course for beginners',
-      students: [
-        {
-          id: 'st02',
-          name: 'Norhan',
-          age: 32,
-          email: 'norhan@test.com',
-          image: ''
-        }
-      ]
+      students: ['st02', 'st01']
     }
   ];
+
+  courseDeletedSubject = new Subject<Course[]>();
 
   getCourses() {
     return [...this.availableCourses];
@@ -53,6 +40,7 @@ export class CoursesService {
 
   addCourse(course: Course) {
     this.availableCourses.unshift(course);
+    console.log(this.availableCourses);
   }
 
   updateCourse(courseID: string, courseObj: Course) {
@@ -63,5 +51,11 @@ export class CoursesService {
     } else {
       console.log('Course ID Not Found!!');
     }
+  }
+
+  deleteCourse(id) {
+    const courseIndex = this.getCourseIndex(id);
+    this.availableCourses.splice(courseIndex, 1);
+    this.courseDeletedSubject.next([...this.availableCourses]);
   }
 }

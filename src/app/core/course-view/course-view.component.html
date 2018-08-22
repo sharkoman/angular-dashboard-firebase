@@ -10,22 +10,24 @@
 
     <mat-form-field>
       <input ngModel type="text" name="name" id="name" matInput placeholder="Name" required>
+      <mat-error>Please add name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input name="date" required matInput ngModel [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>Please add course date</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <textarea ngModel matInput placeholder="Description" name="description" id="description" cols="30" rows="10"></textarea>
     </mat-form-field>
 
-    <mat-form-field *ngIf="mode === 'update'">
-      <mat-select ngModel name="students" id="students" placeholder="students" multiple>
-          <mat-option *ngFor="let student of courseViewed.students" [value]="student.name">{{student.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field *ngIf="mode === 'new'">
-      <mat-select ngModel name="students" id="students" placeholder="students" multiple>
-          <mat-option [value]="eg">egypt</mat-option>
-          <mat-option [value]="en">england</mat-option>
+    <mat-form-field>
+      <mat-select ngModel name="students" id="students" placeholder="Students" multiple>
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let student of allStudents" [value]="student.id">{{student.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 

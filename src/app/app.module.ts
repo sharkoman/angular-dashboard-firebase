@@ -23,6 +23,8 @@ import { OverviewComponent } from './core/overview/overview.component';
 import { StudentViewComponent } from './core/student-view/student-view.component';
 import { CourseViewComponent } from './core/course-view/course-view.component';
 import { StudentService } from './core/students/student.service';
+import { DeleteCourseModalComponent } from './shared/modals/delete-course-modal/delete-course-modal.component';
+import { StudentModalComponent } from './shared/modals/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { StudentService } from './core/students/student.service';
     StudentsComponent,
     OverviewComponent,
     StudentViewComponent,
-    CourseViewComponent
+    CourseViewComponent,
+    StudentModalComponent,
+    DeleteCourseModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,10 @@ import { StudentService } from './core/students/student.service';
     NgxDatatableModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+  ],
+  entryComponents: [
+    StudentModalComponent,
+    DeleteCourseModalComponent,
   ],
   providers: [AuthService, CoursesService, StudentService],
   bootstrap: [AppComponent]

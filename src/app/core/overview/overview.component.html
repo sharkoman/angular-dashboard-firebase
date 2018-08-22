@@ -37,11 +37,19 @@
           Latest added students
         </mat-card-title>
         <mat-card-content>
-          hello world
+            <ngx-datatable
+            class="bootstrap"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [limit]="10"
+            [rows]="studentsRows"
+            [columns]="studentsColumns">
+          </ngx-datatable>
         </mat-card-content>
         <mat-card-footer>
           <a routerLink="/dashboard/students" mat-button color="warn">
-            show all students
+            Show All Students
           </a>
         </mat-card-footer>
       </mat-card>

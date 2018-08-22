@@ -2,19 +2,26 @@
 
 <form #f="ngForm" fxLayout="column" (ngSubmit)="onSubmit(f)">
   <mat-form-field>
-    <input ngModel matInput type="text" [readonly]="studentObjId !== 'new'" name="id" id="id" matInput placeholder="ID" required>
+    <input ngModel matInput type="text" [readonly]="studentObjId !== 'new'" name="id" id="id" placeholder="ID" required>
+    <mat-hint *ngIf="studentObjId !== 'new'">Should not change the ID field</mat-hint>
+    <mat-hint *ngIf="studentObjId === 'new'">Should have no spaces</mat-hint>
+    <mat-error >Please enter a valid ID</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input ngModel matInput type="text" name="name" id="name" matInput placeholder="Name" required>
+    <input ngModel matInput type="text" name="name" id="name" placeholder="Name" required>
+    <mat-error>Please enter a name</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input type="email" matInput name="email" id="email" placeholder="Email" email required ngModel>
+    <input type="email" matInput name="email" id="email" placeholder="Email" ngModel email required #studentEmail="ngModel">
+    <mat-error *ngIf="studentEmail.hasError('required')">Please enter an email</mat-error>
+    <mat-error *ngIf="studentEmail.hasError('email')">Please enter a valid email address</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input ngModel matInput type="number" name="age" id="age" placeholder="Age">
+    <input ngModel matInput type="number" name="age" id="age" placeholder="Age" min="14" max="100">
+    <mat-error>Please enter an age</mat-error>
   </mat-form-field>
 
   <mat-form-field>

@@ -5,5 +5,5 @@ export interface Course {
   name: string;
   date?: Date;
   description?: string;
-  students?: Student[];
+  students?: string[];
 }

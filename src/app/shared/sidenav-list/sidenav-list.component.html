@@ -1,9 +1,9 @@
 <mat-nav-list role="list">
-  <a *ngIf="isAuth" (click)="closeSideNav()" routerLink="/" mat-list-item>
+  <a *ngIf="isAuth" (click)="closeSideNav()" routerLink="/dashboard/courses" mat-list-item>
     <mat-icon matListIcon>bookmarks</mat-icon>
       Courses
   </a>
-  <a *ngIf="isAuth" (click)="closeSideNav()" routerLink="/" mat-list-item>
+  <a *ngIf="isAuth" (click)="closeSideNav()" routerLink="/dashboard/students" mat-list-item>
     <mat-icon matListIcon>face</mat-icon>
       Students
   </a>

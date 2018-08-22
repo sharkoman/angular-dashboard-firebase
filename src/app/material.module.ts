@@ -11,6 +11,9 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSelectModule,
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 
@@ -27,6 +30,9 @@ import {
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -40,6 +46,9 @@ import {
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 

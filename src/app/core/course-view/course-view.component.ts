@@ -4,7 +4,8 @@ import { Course } from './../courses/course.model';
 import { CoursesService } from './../courses/courses.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { Student } from './../students/student.model';
+import { StudentService } from './../students/student.service';
 @Component({
   selector: 'app-course-view',
   templateUrl: './course-view.component.html',
@@ -15,16 +16,21 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
   pageTitle: string = "";
   courseID: string;
   courseViewed: Course;
+  allStudents: Student[];
+  startDate = new Date(1980, 0, 1);
 
   @ViewChild('f') courseForm: NgForm;
 
   constructor(
     private activateRoute: ActivatedRoute,
+    private studentService: StudentService,
     private courseService: CoursesService,
     private router: Router) { }
 
   ngOnInit() {
     this.courseID = this.activateRoute.snapshot.params['id'];
+    this.allStudents = this.studentService.getStudents();
+
     if(this.courseID === 'new') {
       this.mode = "new";
       this.pageTitle = "Add New Course";
@@ -38,9 +44,10 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if(this.courseID !== 'new') {
       setTimeout(() => {
-        this.courseForm.setValue({
+        this.courseForm.form.patchValue({
           id: this.courseViewed.id,
           name: this.courseViewed.name,
+          date: this.courseViewed.date,
           description: this.courseViewed.description,
           students: this.courseViewed.students,
         });
@@ -51,6 +58,8 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
   onSubmit(f: NgForm) {
     if (this.mode === 'new') {
       this.courseService.addCourse(f.value);
+      console.log(f.value.students);
+
     } else {
       this.courseService.updateCourse(f.value.id, f.value);
     }
