@@ -20,7 +20,7 @@ import { CoursesComponent } from './core/courses/courses.component';
 import { StudentsComponent } from './core/students/students.component';
 import { CoursesService } from './core/courses/courses.service';
 import { OverviewComponent } from './core/overview/overview.component';
-import { StudentViewComponent } from './core/student-view/student-view.component';
+import { StudentViewComponent } from './core/students/student-view/student-view.component';
 import { CourseViewComponent } from './core/course-view/course-view.component';
 import { StudentService } from './core/students/student.service';
 import { DeleteCourseModalComponent } from './shared/modals/delete-course-modal/delete-course-modal.component';
@@ -40,7 +40,7 @@ import { StudentsOverviewComponent } from './core/students/students-overview/stu
     StudentViewComponent,
     CourseViewComponent,
     StudentModalComponent,
-    StudentsOverviewComponent
+    StudentsOverviewComponent,
     DeleteCourseModalComponent,
   ],
   imports: [

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { StudentService } from './../students/student.service';
+import { StudentService } from './../student.service';
 import { Router } from '@angular/router';
 
 @Component({
