@@ -13,21 +13,12 @@ import { StudentsOverviewComponent } from './core/students/students-overview/stu
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard/students', component: StudentsComponent, canActivate: [AuthGuard],
-    children: [
-      { path: '', redirectTo: 'all-students', pathMatch: 'full' },
-      { path: 'all-students', component: StudentsOverviewComponent },
-      { path: ':id', component: StudentViewComponent },
-    ]
-  },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: OverviewComponent },
       { path: 'courses', component: CoursesComponent },
       { path: 'courses/:id', component: CourseViewComponent },
-      // { path: 'students', component: StudentsComponent },
-      // { path: 'students/:id', component: StudentViewComponent },
     ]
   }
 ];

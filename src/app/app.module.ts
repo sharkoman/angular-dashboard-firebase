@@ -8,6 +8,8 @@ import { MaterialModule } from './material.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
+import {StudentsModule} from './core/students/students.module';
+
 
 import { AppComponent } from './app.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -17,15 +19,16 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { AuthService } from './auth/auth.service';
 import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
 import { CoursesComponent } from './core/courses/courses.component';
-import { StudentsComponent } from './core/students/students.component';
 import { CoursesService } from './core/courses/courses.service';
 import { OverviewComponent } from './core/overview/overview.component';
-import { StudentViewComponent } from './core/students/student-view/student-view.component';
 import { CourseViewComponent } from './core/course-view/course-view.component';
-import { StudentService } from './core/students/student.service';
 import { DeleteCourseModalComponent } from './shared/modals/delete-course-modal/delete-course-modal.component';
+import { StudentService } from './core/students/student.service';
+
+// import { StudentsComponent } from './core/students/students.component';
+// import { StudentViewComponent } from './core/students/student-view/student-view.component';
+// import { StudentsOverviewComponent } from './core/students/students-overview/students-overview.component';
 import { StudentModalComponent } from './shared/modals/modal/modal.component';
-import { StudentsOverviewComponent } from './core/students/students-overview/students-overview.component';
 
 @NgModule({
   declarations: [
@@ -35,16 +38,17 @@ import { StudentsOverviewComponent } from './core/students/students-overview/stu
     ToolbarComponent,
     SidenavListComponent,
     CoursesComponent,
-    StudentsComponent,
     OverviewComponent,
-    StudentViewComponent,
     CourseViewComponent,
-    StudentModalComponent,
-    StudentsOverviewComponent,
     DeleteCourseModalComponent,
+    // StudentsComponent,
+    // StudentViewComponent,
+    // StudentsOverviewComponent,
+    StudentModalComponent,
   ],
   imports: [
     BrowserModule,
+    StudentsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
