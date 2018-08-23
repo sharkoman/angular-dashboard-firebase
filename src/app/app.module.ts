@@ -25,6 +25,7 @@ import { CourseViewComponent } from './core/course-view/course-view.component';
 import { StudentService } from './core/students/student.service';
 import { DeleteCourseModalComponent } from './shared/modals/delete-course-modal/delete-course-modal.component';
 import { StudentModalComponent } from './shared/modals/modal/modal.component';
+import { StudentsOverviewComponent } from './core/students/students-overview/students-overview.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { StudentModalComponent } from './shared/modals/modal/modal.component';
     StudentViewComponent,
     CourseViewComponent,
     StudentModalComponent,
+    StudentsOverviewComponent
     DeleteCourseModalComponent,
   ],
   imports: [

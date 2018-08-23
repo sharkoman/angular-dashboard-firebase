@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-// import { ToolbarComponent } from './../../shared/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-dashboard',

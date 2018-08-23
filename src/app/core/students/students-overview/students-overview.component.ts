@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { StudentModalComponent } from './../../../shared/modals/modal/modal.component';
 import { Student } from './../student.model';
 import { StudentService } from './../student.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-students-overview',
@@ -24,9 +25,14 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
   constructor(
     private studentService: StudentService,
     private router: Router,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private db: AngularFirestore) { }
 
   ngOnInit() {
+    this.db.collection('students').valueChanges().subscribe((r) => {
+      console.log(r);
+    });
+
     this.dataSource = this.studentService.getStudents();
     this.studentSubject = this.studentService.studentDeleted.subscribe(
       r => {
