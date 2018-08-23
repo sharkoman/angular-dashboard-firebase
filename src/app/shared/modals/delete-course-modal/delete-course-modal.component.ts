@@ -21,7 +21,6 @@ export class DeleteCourseModalComponent implements OnInit {
 
   deleteCourse(studentID) {
     this.courseService.deleteCourse(studentID);
-    console.log('delete: ' + studentID);
   }
 
   ngOnInit() {

@@ -40,14 +40,13 @@ export class CoursesService {
 
   addCourse(course: Course) {
     this.availableCourses.unshift(course);
-    console.log(this.availableCourses);
+
   }
 
   updateCourse(courseID: string, courseObj: Course) {
     const courseIndex = this.getCourseIndex(courseID);
     if (courseIndex !== -1) {
       this.availableCourses[courseIndex] = courseObj;
-      console.log(this.availableCourses);
     } else {
       console.log('Course ID Not Found!!');
     }

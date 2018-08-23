@@ -20,7 +20,6 @@ export class StudentModalComponent implements OnInit {
 
   deleteStudent(studentID) {
     this.studentService.deleteStudent(studentID);
-    console.log('delete: ' + studentID);
   }
 
   ngOnInit() {

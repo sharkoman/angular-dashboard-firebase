@@ -35,7 +35,6 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.value);
     if (this.studentObjId === 'new') {
       this.studentService.addStudent(f.value);
       this.router.navigate(['/dashboard', 'students']);

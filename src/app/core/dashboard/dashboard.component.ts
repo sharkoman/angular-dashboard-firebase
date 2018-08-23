@@ -9,12 +9,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private db: AngularFirestore) { }
+  constructor() { }
 
   ngOnInit() {
-    this.db.collection('students').valueChanges().subscribe((r) => {
-      console.log(r);
-    });
+
   }
 
 }

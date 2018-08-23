@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Student } from './student.model';
-import { StudentService } from './student.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { StudentModalComponent } from './../../shared/modals/modal/modal.component';
 import { Subscription } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { StudentModalComponent } from './../../../shared/modals/modal/modal.component';
+import { Student } from './../student.model';
+import { StudentService } from './../student.service';
+
 @Component({
-  selector: 'app-students',
-  templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss']
+  selector: 'app-students-overview',
+  templateUrl: './students-overview.component.html',
+  styleUrls: ['./students-overview.component.scss']
 })
-export class StudentsComponent implements OnInit, OnDestroy {
+export class StudentsOverviewComponent implements OnInit, OnDestroy {
 
   dataSource: Student[] = [];
   studentSubject: Subscription;
@@ -24,14 +24,9 @@ export class StudentsComponent implements OnInit, OnDestroy {
   constructor(
     private studentService: StudentService,
     private router: Router,
-    private dialog: MatDialog,
-    private db: AngularFirestore) { }
+    private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.db.collection('students').valueChanges().subscribe((r) => {
-      console.log(r);
-    });
-
     this.dataSource = this.studentService.getStudents();
     this.studentSubject = this.studentService.studentDeleted.subscribe(
       r => {

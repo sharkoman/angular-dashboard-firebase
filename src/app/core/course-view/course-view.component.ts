@@ -58,7 +58,6 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
   onSubmit(f: NgForm) {
     if (this.mode === 'new') {
       this.courseService.addCourse(f.value);
-      console.log(f.value.students);
 
     } else {
       this.courseService.updateCourse(f.value.id, f.value);

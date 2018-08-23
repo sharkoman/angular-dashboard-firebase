@@ -1,0 +1,46 @@
+<div class="container">
+  <section>
+    <h2>{{mode}}</h2>
+    <button mat-button color="primary" (click)="addStudent()">Add New Student</button>
+    <h2>Availiable Courses</h2>
+
+    <mat-form-field>
+      <input (keyup)="doFilter($event.target.value)" type="text" matInput placeholder="Filter Students...">
+    </mat-form-field>
+
+  </section>
+
+  <section>
+    <div class="card-list">
+      <mat-card *ngFor="let studentCard of filterArray">
+        <div mat-card-image class="mat-card-image-container"
+          [ngStyle]="studentCard.image ? {backgroundImage: 'url('+ studentCard.image +')'} : studentImage">
+        </div>
+
+        <mat-card-title>{{ studentCard.name }}</mat-card-title>
+        <mat-card-subtitle>ID: {{studentCard.id}}</mat-card-subtitle>
+        <mat-card-content>
+          <p>
+            <strong>Email:</strong>
+            {{studentCard.email}}
+          </p>
+          <p>
+            <strong>Age:</strong>
+            {{studentCard.age}}
+          </p>
+          <p>
+            <strong>
+              Creation Date:
+            </strong>
+            1/8/2018
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="editStudent(studentCard.id)" color="primary">Edit</button>
+          <button mat-button color="warn" (click)="openDialog(studentCard.id)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </section>
+</div>
