@@ -9,10 +9,11 @@ import { MaterialModule } from './../../material.module';
 import { StudentsComponent } from './students.component';
 import { StudentViewComponent } from './student-view/student-view.component';
 import { StudentsOverviewComponent } from './students-overview/students-overview.component';
+import { StudentModalComponent } from './../../shared/modals/modal/modal.component';
 import { StudentRoutingModule } from './students-routing.module';
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
@@ -22,6 +23,10 @@ import { StudentRoutingModule } from './students-routing.module';
     StudentsComponent,
     StudentViewComponent,
     StudentsOverviewComponent,
+    StudentModalComponent,
+  ],
+  entryComponents: [
+    StudentModalComponent,
   ]
 })
 export class StudentsModule { }
