@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Course } from './../courses/course.model';
-import { CoursesService } from './../courses/courses.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Student } from './../students/student.model';
-import { StudentService } from './../students/student.service';
+import { StudentService } from './../../students/student.service';
+import { Course } from './../course.model';
+import { CoursesService } from './../courses.service';
+import { Student } from './../../students/student.model';
+
 @Component({
   selector: 'app-course-view',
   templateUrl: './course-view.component.html',

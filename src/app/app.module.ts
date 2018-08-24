@@ -18,17 +18,12 @@ import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { AuthService } from './auth/auth.service';
 import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
-import { CoursesComponent } from './core/courses/courses.component';
 import { CoursesService } from './core/courses/courses.service';
 import { OverviewComponent } from './core/overview/overview.component';
-import { CourseViewComponent } from './core/course-view/course-view.component';
 import { DeleteCourseModalComponent } from './shared/modals/delete-course-modal/delete-course-modal.component';
 import { StudentService } from './core/students/student.service';
-
-// import { StudentsComponent } from './core/students/students.component';
-// import { StudentViewComponent } from './core/students/student-view/student-view.component';
-// import { StudentsOverviewComponent } from './core/students/students-overview/students-overview.component';
 import { StudentModalComponent } from './shared/modals/modal/modal.component';
+import { CoursesModule } from './core/courses/courses.module';
 
 @NgModule({
   declarations: [
@@ -37,18 +32,14 @@ import { StudentModalComponent } from './shared/modals/modal/modal.component';
     DashboardComponent,
     ToolbarComponent,
     SidenavListComponent,
-    CoursesComponent,
     OverviewComponent,
-    CourseViewComponent,
     DeleteCourseModalComponent,
-    // StudentsComponent,
-    // StudentViewComponent,
-    // StudentsOverviewComponent,
     StudentModalComponent,
   ],
   imports: [
     BrowserModule,
     StudentsModule,
+    CoursesModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
