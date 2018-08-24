@@ -2,7 +2,7 @@
   <section>
     <h2>{{mode}}</h2>
     <button mat-button color="primary" (click)="addStudent()">Add New Student</button>
-    <h2>Availiable Courses</h2>
+    <h2>All Students</h2>
 
     <mat-form-field>
       <input (keyup)="doFilter($event.target.value)" type="text" matInput placeholder="Filter Students...">
@@ -13,11 +13,17 @@
   <section>
     <div class="card-list">
       <mat-card *ngFor="let studentCard of filterArray">
-        <div mat-card-image class="mat-card-image-container"
-          [ngStyle]="studentCard.image ? {backgroundImage: 'url('+ studentCard.image +')'} : studentImage">
-        </div>
+        <a [routerLink]="['/dashboard/students/', studentCard.id]">
+          <div mat-card-image class="mat-card-image-container"
+            [ngStyle]="studentCard.image ? {backgroundImage: 'url('+ studentCard.image +')'} : studentImage">
+          </div>
+        </a>
 
-        <mat-card-title>{{ studentCard.name }}</mat-card-title>
+        <mat-card-title>
+          <a [routerLink]="['/dashboard/students/', studentCard.id]">
+            {{ studentCard.name }}
+          </a>
+        </mat-card-title>
         <mat-card-subtitle>ID: {{studentCard.id}}</mat-card-subtitle>
         <mat-card-content>
           <p>
@@ -32,7 +38,7 @@
             <strong>
               Creation Date:
             </strong>
-            1/8/2018
+            {{ studentCard.creationDate | date:'medium' }}
           </p>
         </mat-card-content>
         <mat-card-actions>

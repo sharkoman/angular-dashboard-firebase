@@ -2,11 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { map } from "rxjs/operators";
 import { StudentModalComponent } from './../../../shared/modals/modal/modal.component';
 import { Student } from './../student.model';
 import { StudentService } from './../student.service';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-students-overview',
@@ -16,7 +14,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class StudentsOverviewComponent implements OnInit, OnDestroy {
 
   dataSource: Student[] = [];
+
   studentSubject: Subscription;
+  studentsChangeSubscription :Subscription;
+
   columnsToDisplay = ['id', 'name', 'email', 'age', 'image', 'action'];
   filterArray: Student[];
   studentImage = {
@@ -27,28 +28,26 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
     private studentService: StudentService,
     private router: Router,
     private dialog: MatDialog,
-    private db: AngularFirestore) { }
+  ) { }
 
   ngOnInit() {
-    this.db.collection('students').snapshotChanges().pipe(
-      map( studentsArray => {
-        return studentsArray.map( el => {
-          return {
-            id: el.payload.doc.id,
-            ...el.payload.doc.data()
-          }
-        }) //jsmap
-      }) //rxmap
-    ).subscribe( r => console.log(r) );
+    this.studentService.getStudents();
 
-    this.dataSource = this.studentService.getStudents();
+    this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(
+      students => {
+        this.dataSource = students;
+        this.filterArray = this.dataSource;
+        console.log('student overview: ',this.filterArray);
+      }
+    );
+
     this.studentSubject = this.studentService.studentDeleted.subscribe(
       r => {
         this.dataSource = r.slice();
         this.filterArray = this.dataSource;
       }
     );
-    this.filterArray = this.dataSource;
+
   }
 
   ngOnDestroy() {

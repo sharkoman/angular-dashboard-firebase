@@ -7,6 +7,8 @@
     <mat-hint *ngIf="studentObjId === 'new'">Should have no spaces</mat-hint>
     <mat-error >Please enter a valid ID</mat-error>
   </mat-form-field>
+  <input name="creationDate" ngModel hidden [value]="creationDate">
+
 
   <mat-form-field>
     <input ngModel matInput type="text" name="name" id="name" placeholder="Name" required>
@@ -30,5 +32,6 @@
 
   <div>
     <button type="submit" color="primary" [disabled]="!f.valid" mat-raised-button>{{ (studentObjId === 'new') ? 'Save' : 'Update' }}</button>
+    <button type="button" mat-raised-button (click)="cancleEditStudent()">Cancle</button>
   </div>
 </form>

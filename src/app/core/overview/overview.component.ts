@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CoursesService } from "../courses/courses.service";
 import { Course } from './../courses/course.model';
 import { Student } from './../students/student.model';
 import { StudentService } from './../students/student.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
   coursesRows :Course[];
   coursesColumns = [
     {
@@ -47,19 +48,34 @@ export class OverviewComponent implements OnInit {
       name: 'Age',
     },
   ];
+  studentsChangeSubscription: Subscription;
 
   constructor(
     private coursesService: CoursesService,
-    private studentService: StudentService
+    private studentService: StudentService,
   ) {}
 
   ngOnInit() {
+    this.studentService.getStudents();
+
+    this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(
+      students => this.studentsRows = students
+    );
+
+
     this.coursesRows = this.coursesService.getCourses();
     this.coursesRowsUpdated = this.coursesRows.map(el => {
       return { ...el, studentsNumber: el.students.length.toString() }
     });
 
-    this.studentsRows = this.studentService.getStudents();
+    this.studentService.studentsChanged.subscribe(students => {
+      console.log('dashboard init', students);
+      this.studentsRows = students
+    });
+  }
+
+  ngOnDestroy() {
+    this.studentsChangeSubscription.unsubscribe();
   }
 
 }

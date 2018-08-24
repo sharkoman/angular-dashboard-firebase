@@ -30,7 +30,9 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.courseID = this.activateRoute.snapshot.params['id'];
-    this.allStudents = this.studentService.getStudents();
+    this.studentService.getStudents();
+    this.studentService.studentsChanged
+    .subscribe(students => this.allStudents = students);
 
     if(this.courseID === 'new') {
       this.mode = "new";

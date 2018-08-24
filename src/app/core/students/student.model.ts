@@ -4,5 +4,5 @@ export interface Student {
   age?: number;
   email: string;
   image?: string;
-  date?: Date;
+  creationDate?: Date;
 }

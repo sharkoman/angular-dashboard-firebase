@@ -1,37 +1,36 @@
+import { Injectable } from "@angular/core";
 import { Student } from "./student.model";
 import { Subject } from 'rxjs';
-
+import { AngularFirestore } from 'angularfire2/firestore';
+import { map } from "rxjs/operators";
+@Injectable()
 export class StudentService {
-  private availableStudents: Student[] = [
-    {
-      id: 'st01',
-      name: 'sherif ahmed',
-      age: 32,
-      email: 'sharko@test.com',
-      image: ''
-    },
-    {
-      id: 'st02',
-      name: 'Norhan',
-      age: 26,
-      email: 'norhan@test.com',
-      image: ''
-    },
-    {
-      id: 'st03',
-      name: 'nada ahmed',
-      age: 21,
-      email: 'nada-ahmed@test.com',
-      image: ''
-    }
-  ];
+  constructor (private db: AngularFirestore) {}
+
+  availableStudents: Student[];
 
   studentDeleted = new Subject<Student[]>();
 
   studentsChanged = new Subject<Student[]>();
 
   getStudents() {
-    return [...this.availableStudents];
+    this.db.collection('students').snapshotChanges()
+    .pipe(map(stData => {
+      return stData.map( el => {
+        return {
+          id: el.payload.doc.id,
+          creationDate: new Date(el.payload.doc.data().creationDate.seconds),
+          age: el.payload.doc.data().age,
+          name: el.payload.doc.data().name,
+          email: el.payload.doc.data().email,
+          image: el.payload.doc.data().image,
+        }
+      });
+    }))
+    .subscribe( students => {
+      this.availableStudents = students;
+      this.studentsChanged.next([...this.availableStudents]);
+    });
   }
 
   private getStudentIndexById(studentID) {
@@ -46,8 +45,9 @@ export class StudentService {
   }
 
   addStudent(student: Student) {
-    this.availableStudents.unshift(student);
-    console.log(this.availableStudents);
+    this.addStudentToDatabase(student);
+    // this.availableStudents.unshift(student);
+    // console.log(this.availableStudents);
   }
 
   updateStudent(studentID, studentObj) {
@@ -59,5 +59,9 @@ export class StudentService {
     const studentIndex = this.getStudentIndexById(studentID);
     this.availableStudents.splice(studentIndex, 1);
     this.studentDeleted.next([...this.availableStudents]);
+  }
+
+  private addStudentToDatabase(student: Student) {
+    this.db.collection('students').add(student);
   }
 }

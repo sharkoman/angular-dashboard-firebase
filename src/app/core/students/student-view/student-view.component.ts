@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { StudentService } from './../student.service';
 import { Router } from '@angular/router';
+import { Student } from '../student.model';
 
 @Component({
   selector: 'app-student-view',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class StudentViewComponent implements OnInit, AfterViewInit {
 
   studentObjId: string;
+  studentObj: Student;
 
   @ViewChild('f') studentForm: NgForm;
 
@@ -23,25 +25,42 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.studentObjId = this.activatedRoute.snapshot.params['id'];
+    const stIndex = this.studentService.availableStudents.findIndex(el => {
+      return el.id == this.studentObjId;
+    });
+    this.studentObj = this.studentService.availableStudents[stIndex];
   }
 
   ngAfterViewInit() {
     if(this.studentObjId !== 'new') {
       setTimeout(() => {
-        const studentObj = this.studentService.getStudentById(this.studentObjId);
-        this.studentForm.setValue(studentObj);
+        this.studentForm.setValue(this.studentObj);
+        console.log(this.studentObj);
       }, 100);
     }
   }
 
   onSubmit(f: NgForm) {
     if (this.studentObjId === 'new') {
-      this.studentService.addStudent(f.value);
+      const submitStudentObj = {
+        age: f.value.age,
+        creationDate: new Date(),
+        email: f.value.email,
+        id: f.value.id,
+        image: f.value.image,
+        name: f.value.name,
+      }
+      console.log(submitStudentObj);
+      this.studentService.addStudent(submitStudentObj);
       this.router.navigate(['/dashboard', 'students']);
     } else {
       this.studentService.updateStudent(this.studentObjId, f.value);
       this.router.navigate(['/dashboard', 'students']);
     }
+  }
+
+  cancleEditStudent() {
+    this.router.navigate(['/dashboard', 'students']);
   }
 
 }
