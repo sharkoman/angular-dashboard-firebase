@@ -28,6 +28,8 @@ export class StudentService {
 
   studentDeleted = new Subject<Student[]>();
 
+  studentsChanged = new Subject<Student[]>();
+
   getStudents() {
     return [...this.availableStudents];
   }

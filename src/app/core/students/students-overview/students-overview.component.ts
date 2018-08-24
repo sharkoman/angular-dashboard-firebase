@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
+import { map } from "rxjs/operators";
 import { StudentModalComponent } from './../../../shared/modals/modal/modal.component';
 import { Student } from './../student.model';
 import { StudentService } from './../student.service';
@@ -29,9 +30,16 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
     private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.db.collection('students').valueChanges().subscribe((r) => {
-      console.log(r);
-    });
+    this.db.collection('students').snapshotChanges().pipe(
+      map( studentsArray => {
+        return studentsArray.map( el => {
+          return {
+            id: el.payload.doc.id,
+            ...el.payload.doc.data()
+          }
+        }) //jsmap
+      }) //rxmap
+    ).subscribe( r => console.log(r) );
 
     this.dataSource = this.studentService.getStudents();
     this.studentSubject = this.studentService.studentDeleted.subscribe(
