@@ -50,7 +50,6 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
         image: f.value.image,
         name: f.value.name,
       }
-      console.log(submitStudentObj);
       this.studentService.addStudent(submitStudentObj);
       this.router.navigate(['/dashboard', 'students']);
     } else {

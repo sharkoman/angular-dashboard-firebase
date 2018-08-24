@@ -1,17 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Student } from "./student.model";
 import { Subject } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { map } from "rxjs/operators";
 @Injectable()
 export class StudentService {
-  constructor (private db: AngularFirestore) {}
+  constructor (
+    private db: AngularFirestore,
+  ) {}
 
   availableStudents: Student[];
 
   studentDeleted = new Subject<Student[]>();
 
   studentsChanged = new Subject<Student[]>();
+
+  studentDoc: AngularFirestoreDocument<Student>;
 
   getStudents() {
     this.db.collection('students').snapshotChanges()
@@ -46,8 +50,6 @@ export class StudentService {
 
   addStudent(student: Student) {
     this.addStudentToDatabase(student);
-    // this.availableStudents.unshift(student);
-    // console.log(this.availableStudents);
   }
 
   updateStudent(studentID, studentObj) {
@@ -55,13 +57,12 @@ export class StudentService {
     this.availableStudents[stIndex] = studentObj;
   }
 
-  deleteStudent(studentID) {
-    const studentIndex = this.getStudentIndexById(studentID);
-    this.availableStudents.splice(studentIndex, 1);
-    this.studentDeleted.next([...this.availableStudents]);
+  deleteStudent(studentID: string) {
+    this.studentDoc = this.db.doc(`students/${studentID}`);
+    this.studentDoc.delete();
   }
 
   private addStudentToDatabase(student: Student) {
-    this.db.collection('students').add(student);
+    this.db.collection('students', ref => ref.orderBy('creationDate', 'desc')).add(student);
   }
 }
