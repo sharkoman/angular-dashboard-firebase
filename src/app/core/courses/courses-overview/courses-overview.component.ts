@@ -16,7 +16,7 @@ export class CoursesOverviewComponent implements OnInit, AfterViewInit, OnDestro
 
   dataSource = new MatTableDataSource<Course>();
 
-  columnsToDisplay = ['id', 'name', 'date', 'students', 'action'];
+  columnsToDisplay = ['name', 'date', 'students', 'action'];
 
   temp = [];
 
@@ -36,7 +36,8 @@ export class CoursesOverviewComponent implements OnInit, AfterViewInit, OnDestro
     this.coursesService.getCourses();
     this.coursesChangeSubscription = this.coursesService.coursesChanged.subscribe(
       courses => {
-        console.log(courses);
+        console.log('coursesoverview:', courses);
+
         this.dataSource.data = courses;
       }
     );

@@ -25,7 +25,7 @@ export class CoursesService {
       return coursesData.map( el => {
         return {
           id: el.payload.doc.id,
-          date: new Date(el.payload.doc.data().date.seconds),
+          date: new Date(el.payload.doc.data().date.seconds * 1000),
           name: el.payload.doc.data().name,
           description: el.payload.doc.data().description,
           students: el.payload.doc.data().students,
@@ -54,7 +54,7 @@ export class CoursesService {
   }
 
   addCourse(course: Course) {
-    this.db.collection('courses', ref => ref.orderBy('name', 'asc')).add(course);
+    this.db.collection('courses', ref => ref.orderBy('date', 'desc')).add(course);
   }
 
   updateCourse(courseID: string, courseObj: Course) {

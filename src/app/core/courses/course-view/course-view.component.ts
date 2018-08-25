@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,19 +6,21 @@ import { StudentService } from './../../students/student.service';
 import { Course } from './../course.model';
 import { CoursesService } from './../courses.service';
 import { Student } from './../../students/student.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course-view',
   templateUrl: './course-view.component.html',
   styleUrls: ['./course-view.component.scss']
 })
-export class CourseViewComponent implements OnInit, AfterViewInit {
+export class CourseViewComponent implements OnInit, AfterViewInit, OnDestroy {
   mode :string = '';
   pageTitle: string = "";
   courseID: string;
   courseViewed: Course;
   allStudents: Student[];
-  startDate = new Date(1980, 0, 1);
+
+  getStudentsSubscription: Subscription;
 
   @ViewChild('f') courseForm: NgForm;
 
@@ -31,8 +33,11 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.courseID = this.activateRoute.snapshot.params['id'];
     this.studentService.getStudents();
-    this.studentService.studentsChanged
-    .subscribe(students => this.allStudents = students);
+    this.getStudentsSubscription = this.studentService.studentsChanged.subscribe(
+      r => {
+        this.allStudents = r;
+      }
+    );
 
     if(this.courseID === 'new') {
       this.mode = "new";
@@ -58,10 +63,13 @@ export class CourseViewComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngOnDestroy() {
+    this.getStudentsSubscription.unsubscribe();
+  }
+
   onSubmit(f: NgForm) {
     if (this.mode === 'new') {
       this.courseService.addCourse(f.value);
-
     } else {
       this.courseService.updateCourse(f.value.id, f.value);
     }

@@ -23,12 +23,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
       width: 225
     },
     {
-      prop: 'date',
-      name: 'Date',
-      flexGrow: 1,
-      width: 110
-    },
-    {
       prop: 'studentsNumber',
       name: 'Students No.',
       flexGrow: 0
