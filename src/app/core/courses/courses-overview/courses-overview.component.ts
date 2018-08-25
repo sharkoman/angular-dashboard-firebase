@@ -22,23 +22,28 @@ export class CoursesOverviewComponent implements OnInit, AfterViewInit, OnDestro
 
   courseSubscription: Subscription;
 
+  coursesChangeSubscription: Subscription;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private courseService: CoursesService,
+    private coursesService: CoursesService,
     private router: Router,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.dataSource.data = this.courseService.getCourses();
-    this.courseSubscription = this.courseService.courseDeletedSubject.subscribe(
-      r => this.dataSource.data = r
-    )
+    this.coursesService.getCourses();
+    this.coursesChangeSubscription = this.coursesService.coursesChanged.subscribe(
+      courses => {
+        console.log(courses);
+        this.dataSource.data = courses;
+      }
+    );
   }
 
   ngOnDestroy() {
-    this.courseSubscription.unsubscribe();
+    this.coursesChangeSubscription.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -58,7 +63,7 @@ export class CoursesOverviewComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   openDialog(id) {
-    const courseObj = this.courseService.getCourseById(id);
+    const courseObj = this.coursesService.getCourseById(id);
     this.dialog.open(DeleteCourseModalComponent, {
       width: '450px',
       data: { courseName: courseObj.name, courseID: courseObj.id }

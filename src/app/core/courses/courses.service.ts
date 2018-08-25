@@ -1,26 +1,41 @@
-import { Course } from './course.model';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Course } from './course.model';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { map } from 'rxjs/operators';
 
+@Injectable()
 export class CoursesService {
-  private availableCourses: Course[] = [
-    {
-      id: '01-react',
-      name: 'React essential trianing',
-      description: 'react course for beginners',
-      students: ['st01']
-    },
-    {
-      id: '01-angular',
-      name: 'Angular essential trianing',
-      description: 'angular course for beginners',
-      students: ['st02', 'st01']
-    }
-  ];
+
+  availableCourses: Course[];
+
+  coursesDoc: AngularFirestoreDocument<Course>;
+
+  coursesChanged = new Subject<Course[]>();
 
   courseDeletedSubject = new Subject<Course[]>();
 
+  constructor (
+    private db: AngularFirestore,
+  ) {}
+
   getCourses() {
-    return [...this.availableCourses];
+    this.db.collection('courses').snapshotChanges()
+    .pipe(map( coursesData => {
+      return coursesData.map( el => {
+        return {
+          id: el.payload.doc.id,
+          date: new Date(el.payload.doc.data().date.seconds),
+          name: el.payload.doc.data().name,
+          description: el.payload.doc.data().description,
+          students: el.payload.doc.data().students,
+        }
+      });
+    }))
+    .subscribe( courses => {
+      this.availableCourses = courses;
+      this.coursesChanged.next([...this.availableCourses]);
+    });
   }
 
   getCourseIndex(id) {
@@ -39,22 +54,16 @@ export class CoursesService {
   }
 
   addCourse(course: Course) {
-    this.availableCourses.unshift(course);
-
+    this.db.collection('courses', ref => ref.orderBy('name', 'desc')).add(course);
   }
 
   updateCourse(courseID: string, courseObj: Course) {
-    const courseIndex = this.getCourseIndex(courseID);
-    if (courseIndex !== -1) {
-      this.availableCourses[courseIndex] = courseObj;
-    } else {
-      console.log('Course ID Not Found!!');
-    }
+    this.coursesDoc = this.db.doc(`courses/${courseID}`);
+    this.coursesDoc.update(courseObj);
   }
 
-  deleteCourse(id) {
-    const courseIndex = this.getCourseIndex(id);
-    this.availableCourses.splice(courseIndex, 1);
-    this.courseDeletedSubject.next([...this.availableCourses]);
+  deleteCourse(courseID) {
+    this.coursesDoc = this.db.doc(`courses/${courseID}`);
+    this.coursesDoc.delete();
   }
 }

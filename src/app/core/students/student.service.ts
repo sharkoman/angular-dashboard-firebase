@@ -53,8 +53,6 @@ export class StudentService {
   }
 
   updateStudent(studentID, studentObj) {
-    // const stIndex = this.getStudentIndexById(studentID);
-    // this.availableStudents[stIndex] = studentObj;
     this.studentDoc = this.db.doc(`students/${studentID}`);
     this.studentDoc.update(studentObj);
   }

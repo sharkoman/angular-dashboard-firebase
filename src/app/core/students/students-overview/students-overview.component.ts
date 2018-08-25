@@ -37,7 +37,6 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
       students => {
         this.dataSource = students;
         this.filterArray = this.dataSource;
-        console.log('student overview: ',this.filterArray);
       }
     );
 

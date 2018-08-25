@@ -4,6 +4,8 @@ import { Course } from './../courses/course.model';
 import { Student } from './../students/student.model';
 import { StudentService } from './../students/student.service';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-overview',
@@ -12,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class OverviewComponent implements OnInit, OnDestroy {
   coursesRows :Course[];
+
   coursesColumns = [
     {
       prop: 'name',
@@ -48,33 +51,37 @@ export class OverviewComponent implements OnInit, OnDestroy {
       name: 'Age',
     },
   ];
+
   studentsChangeSubscription: Subscription;
+
+  coursesChangeSubscription: Subscription;
 
   constructor(
     private coursesService: CoursesService,
     private studentService: StudentService,
+    private db: AngularFirestore,
   ) {}
 
   ngOnInit() {
-    this.studentService.getStudents();
-
-    this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(
-      students => this.studentsRows = students
+    this.coursesService.getCourses();
+    this.coursesChangeSubscription = this.coursesService.coursesChanged.subscribe(
+      r => {
+        this.coursesRows = r;
+        this.coursesRowsUpdated = this.coursesRows.map(el => {
+          return { ...el, studentsNumber: el.students.length.toString() }
+        });
+        console.log(this.coursesRowsUpdated);
+      }
     );
 
-
-    this.coursesRows = this.coursesService.getCourses();
-    this.coursesRowsUpdated = this.coursesRows.map(el => {
-      return { ...el, studentsNumber: el.students.length.toString() }
-    });
-
-    this.studentService.studentsChanged.subscribe(students => {
-      console.log('dashboard init', students);
+    this.studentService.getStudents();
+    this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(students => {
       this.studentsRows = students
     });
   }
 
   ngOnDestroy() {
+    this.coursesChangeSubscription.unsubscribe();
     this.studentsChangeSubscription.unsubscribe();
   }
 
