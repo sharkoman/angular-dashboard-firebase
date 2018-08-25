@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Student } from "./student.model";
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { map } from "rxjs/operators";
 @Injectable()
@@ -17,8 +17,10 @@ export class StudentService {
 
   studentDoc: AngularFirestoreDocument<Student>;
 
+  private studentsFirebaseSubscription: Subscription;
+
   getStudents() {
-    this.db.collection('students').snapshotChanges()
+    this.studentsFirebaseSubscription = this.db.collection('students').snapshotChanges()
     .pipe(map(stData => {
       return stData.map( el => {
         return {
@@ -64,5 +66,9 @@ export class StudentService {
 
   private addStudentToDatabase(student: Student) {
     this.db.collection('students', ref => ref.orderBy('creationDate', 'desc')).add(student);
+  }
+
+  cancleSubscription() {
+    this.studentsFirebaseSubscription.unsubscribe();
   }
 }

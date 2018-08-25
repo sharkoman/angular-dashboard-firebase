@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Course } from './course.model';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
@@ -15,12 +15,14 @@ export class CoursesService {
 
   courseDeletedSubject = new Subject<Course[]>();
 
+  private courseFirebaseSubscription: Subscription;
+
   constructor (
     private db: AngularFirestore,
   ) {}
 
   getCourses() {
-    this.db.collection('courses').snapshotChanges()
+    this.courseFirebaseSubscription = this.db.collection('courses').snapshotChanges()
     .pipe(map( coursesData => {
       return coursesData.map( el => {
         return {
@@ -65,5 +67,9 @@ export class CoursesService {
   deleteCourse(courseID) {
     this.coursesDoc = this.db.doc(`courses/${courseID}`);
     this.coursesDoc.delete();
+  }
+
+  cancleSubscription() {
+    this.courseFirebaseSubscription.unsubscribe();
   }
 }

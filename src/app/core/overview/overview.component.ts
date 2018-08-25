@@ -69,9 +69,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
     );
 
     this.studentService.getStudents();
-    this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(students => {
-      this.studentsRows = students
-    });
+    this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(
+      students => {
+        this.studentsRows = students;
+      }
+    );
+
   }
 
   ngOnDestroy() {

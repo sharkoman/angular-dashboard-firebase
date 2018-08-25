@@ -3,6 +3,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
 import { Router } from '@angular/router';
+import { CoursesService } from './../core/courses/courses.service';
+import { StudentService } from './../core/students/student.service';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +15,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private fireAuth: AngularFireAuth,
+    private courseService: CoursesService,
+    private studentService: StudentService
   ) {}
 
   logIn(authData: AuthData) {
@@ -27,6 +31,9 @@ export class AuthService {
   }
 
   logOut() {
+    console.log('logout');
+    this.courseService.cancleSubscription();
+    this.studentService.cancleSubscription();
     this.fireAuth.auth.signOut();
     this.isAuthLogin = false;
     this.authChange.next(false);
