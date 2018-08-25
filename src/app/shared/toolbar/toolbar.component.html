@@ -21,10 +21,10 @@
             <a routerLink="/dashboard/students">Students</a>
           </li>
           <li *ngIf="isAuth">
-            <a routerLink="/">Logout</a>
+            <button mat-button type="button" (click)="logout()">Logout</button>
           </li>
           <li *ngIf="!isAuth">
-            <a routerLink="/" (click)="logout()">Login</a>
+            <a routerLink="/login">Login</a>
           </li>
         </ul>
       </div>

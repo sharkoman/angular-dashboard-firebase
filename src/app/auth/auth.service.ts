@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from 'rxjs';
-import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { Router } from '@angular/router';
 
@@ -28,6 +27,7 @@ export class AuthService {
   }
 
   logOut() {
+    this.fireAuth.auth.signOut();
     this.isAuthLogin = false;
     this.authChange.next(false);
     this.router.navigate(['/login']);

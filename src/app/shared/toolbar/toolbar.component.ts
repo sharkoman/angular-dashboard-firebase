@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+    // this.authSubscription.unsubscribe();
   }
 
   toggleSidebarHandler() {
@@ -31,12 +31,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.isAuth = false;
     this.authService.logOut();
-    this.authSubscription = this.authService.authChange.subscribe(
-      authStatus => {
-        this.isAuth = authStatus;
-      }
-    );
   }
 
 }
