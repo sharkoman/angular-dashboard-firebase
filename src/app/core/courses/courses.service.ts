@@ -54,7 +54,7 @@ export class CoursesService {
   }
 
   addCourse(course: Course) {
-    this.db.collection('courses', ref => ref.orderBy('name', 'desc')).add(course);
+    this.db.collection('courses', ref => ref.orderBy('name', 'asc')).add(course);
   }
 
   updateCourse(courseID: string, courseObj: Course) {
