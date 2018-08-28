@@ -36,8 +36,6 @@ export class CoursesOverviewComponent implements OnInit, AfterViewInit, OnDestro
     this.coursesService.getCourses();
     this.coursesChangeSubscription = this.coursesService.coursesChanged.subscribe(
       courses => {
-        console.log('coursesoverview:', courses);
-
         this.dataSource.data = courses;
       }
     );
