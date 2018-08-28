@@ -64,7 +64,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
         this.coursesRowsUpdated = this.coursesRows.map(el => {
           return { ...el, studentsNumber: el.students.length.toString() }
         });
-        console.log(this.coursesRowsUpdated);
       }
     );
 

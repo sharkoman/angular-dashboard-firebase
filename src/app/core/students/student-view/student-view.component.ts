@@ -35,7 +35,6 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
     if(this.studentObjId !== 'new') {
       setTimeout(() => {
         this.studentForm.setValue(this.studentObj);
-        console.log(this.studentObj);
       }, 100);
     }
   }

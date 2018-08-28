@@ -22,7 +22,6 @@ export class AuthService {
   logIn(authData: AuthData) {
     this.fireAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
     .then(result => {
-      console.log(result);
       this.authSuccessfully();
     })
     .catch(error => {
@@ -31,7 +30,6 @@ export class AuthService {
   }
 
   logOut() {
-    console.log('logout');
     this.courseService.cancleSubscription();
     this.studentService.cancleSubscription();
     this.fireAuth.auth.signOut();
