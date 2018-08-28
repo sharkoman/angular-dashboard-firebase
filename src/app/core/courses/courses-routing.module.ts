@@ -6,7 +6,7 @@ import { CoursesOverviewComponent } from './courses-overview/courses-overview.co
 import { CourseViewComponent } from './course-view/course-view.component';
 
 const coursesRouting :Routes = [
-  { path: 'dashboard/courses', component: CoursesComponent, canActivate: [AuthGuard],
+  { path: '', component: CoursesComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'courses-overview', pathMatch: 'full' },
       { path: 'courses-overview', component: CoursesOverviewComponent},

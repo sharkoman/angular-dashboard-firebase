@@ -14,8 +14,6 @@ import { AuthService } from './auth/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { CoreModule } from './core.module';
-import { CoursesModule } from './core/courses/courses.module';
-// import { StudentsModule } from './core/students/students.module';
 
 import { AppComponent } from './app.component';
 
@@ -23,6 +21,7 @@ import { StudentService } from './core/students/student.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
+import { CoursesService } from './core/courses/courses.service';
 
 @NgModule({
   declarations: [
@@ -40,13 +39,11 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     CoreModule,
-    // StudentsModule,
-    CoursesModule,
     AppRoutingModule,
   ],
   entryComponents: [
   ],
-  providers: [AuthService, StudentService, AngularFireAuth],
+  providers: [AuthService, StudentService, AngularFireAuth, CoursesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
