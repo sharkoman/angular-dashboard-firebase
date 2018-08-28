@@ -15,7 +15,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { CoreModule } from './core.module';
 import { CoursesModule } from './core/courses/courses.module';
-import { StudentsModule } from './core/students/students.module';
+// import { StudentsModule } from './core/students/students.module';
 
 import { AppComponent } from './app.component';
 
@@ -31,7 +31,7 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     SidenavListComponent,
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
@@ -40,7 +40,7 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     CoreModule,
-    StudentsModule,
+    // StudentsModule,
     CoursesModule,
     AppRoutingModule,
   ],

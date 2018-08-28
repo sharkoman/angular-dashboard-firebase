@@ -6,7 +6,7 @@ import { StudentsOverviewComponent } from './students-overview/students-overview
 import { StudentViewComponent } from './student-view/student-view.component';
 
 const studentsRouting :Routes = [
-  { path: 'dashboard/students', component: StudentsComponent, canActivate: [AuthGuard],
+  { path: '', component: StudentsComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'all-students', pathMatch: 'full' },
       { path: 'all-students', component: StudentsOverviewComponent },
