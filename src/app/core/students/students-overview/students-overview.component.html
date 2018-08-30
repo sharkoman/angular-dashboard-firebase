@@ -11,7 +11,10 @@
   </section>
 
   <section>
-    <div class="card-list">
+    <div class="card-list" infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()">
       <mat-card *ngFor="let studentCard of filterArray">
         <a [routerLink]="['/dashboard/students/', studentCard.id]">
           <div mat-card-image class="mat-card-image-container"

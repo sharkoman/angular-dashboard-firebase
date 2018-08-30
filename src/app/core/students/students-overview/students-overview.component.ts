@@ -14,6 +14,7 @@ import { StudentService } from './../student.service';
 export class StudentsOverviewComponent implements OnInit, OnDestroy {
 
   dataSource: Student[] = [];
+  originalStudents: Student[];
 
   studentSubject: Subscription;
   studentsChangeSubscription :Subscription;
@@ -35,7 +36,8 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
 
     this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(
       students => {
-        this.dataSource = students;
+        this.originalStudents = students;
+        this.dataSource = students.slice(0, 2);
         this.filterArray = this.dataSource;
       }
     );
@@ -47,6 +49,22 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  onScroll() {
+    console.log('scrolled');
+
+    if ( this.dataSource.length < this.originalStudents.length ) {
+      let len = this.dataSource.length;
+      console.log('coco');
+      let x = this.originalStudents.slice(0, 2);
+      let y = this.originalStudents.slice(2, 4);
+      this.dataSource = this.dataSource.concat(y);
+      this.filterArray = this.dataSource;
+
+      console.log(x, y, this.dataSource);
+
+    }
   }
 
   ngOnDestroy() {
@@ -75,5 +93,7 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
       data: {studentName: studentObj.name, studentID: studentObj.id}
     });
   }
+
+
 
 }

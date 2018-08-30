@@ -9,13 +9,15 @@ import { StudentViewComponent } from './student-view/student-view.component';
 import { StudentsOverviewComponent } from './students-overview/students-overview.component';
 import { StudentModalComponent } from './../../shared/modals/modal/modal.component';
 import { StudentRoutingModule } from './students-routing.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    StudentRoutingModule
+    StudentRoutingModule,
+    InfiniteScrollModule
   ],
   declarations: [
     StudentsComponent,
