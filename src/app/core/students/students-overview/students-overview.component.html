@@ -16,14 +16,14 @@
     [infiniteScrollThrottle]="3000"
     (scrolled)="onScroll()">
       <mat-card *ngFor="let studentCard of filterArray">
-        <a [routerLink]="['/dashboard/students/', studentCard.id]">
+        <a routerLink="['dashboard/students', studentCard.id]">
           <div mat-card-image class="mat-card-image-container"
             [ngStyle]="studentCard.image ? {backgroundImage: 'url('+ studentCard.image +')'} : studentImage">
           </div>
         </a>
 
         <mat-card-title>
-          <a [routerLink]="['/dashboard/students/', studentCard.id]">
+          <a routerLink="['dashboard/students', studentCard.id]">
             {{ studentCard.name }}
           </a>
         </mat-card-title>

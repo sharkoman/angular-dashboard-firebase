@@ -2,6 +2,7 @@
 
 .login-form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   background: white;
   padding: 1em 2em;
@@ -20,4 +21,10 @@ form {
   @media (min-width: 560px) {
     min-width: 100%;
   }
+}
+
+.login-data {
+  padding: 1em;
+  background: lightblue;
+  border-radius: 3px;
 }

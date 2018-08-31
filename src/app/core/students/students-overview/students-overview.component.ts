@@ -54,15 +54,10 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
   }
 
   onScroll() {
-    console.log('scrolled');
 
     if ( this.dataSource.length < this.originalStudents.length ) {
       let nextArray = this.originalStudents.slice(this.filterArray.length, this.filterArray.length+3);
-
       this.filterArray = this.filterArray.concat(nextArray);
-
-      console.log(this.filterArray);
-
     }
   }
 

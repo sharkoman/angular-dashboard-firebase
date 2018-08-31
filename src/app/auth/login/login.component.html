@@ -1,4 +1,9 @@
 <section class="login-form">
+    <div class="login-data">
+      <p>email: <strong>sharko@test.com</strong></p>
+      <p>password: <strong>123456</strong></p>
+    </div>
+
     <form fxLayout="column" #f="ngForm" (ngSubmit)="onSubmitLogin(f)">
       <mat-form-field>
         <input matInput placeholder="Email" ngModel type="email" name="email" id="email" email required #emailInput="ngModel">
