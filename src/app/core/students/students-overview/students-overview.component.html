@@ -12,8 +12,8 @@
 
   <section>
     <div class="card-list" infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
+    [infiniteScrollDistance]="20"
+    [infiniteScrollThrottle]="3000"
     (scrolled)="onScroll()">
       <mat-card *ngFor="let studentCard of filterArray">
         <a [routerLink]="['/dashboard/students/', studentCard.id]">

@@ -25,6 +25,8 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
     backgroundImage: "url('https://thumbs.dreamstime.com/b/profile-icon-male-avatar-portrait-casual-person-silhouette-face-flat-design-vector-illustration-58249394.jpg')",
   }
 
+  startSlice: number = 3;
+
   constructor(
     private studentService: StudentService,
     private router: Router,
@@ -37,7 +39,7 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
     this.studentsChangeSubscription = this.studentService.studentsChanged.subscribe(
       students => {
         this.originalStudents = students;
-        this.dataSource = students.slice(0, 2);
+        this.dataSource = students.slice(0, this.startSlice);
         this.filterArray = this.dataSource;
       }
     );
@@ -55,14 +57,11 @@ export class StudentsOverviewComponent implements OnInit, OnDestroy {
     console.log('scrolled');
 
     if ( this.dataSource.length < this.originalStudents.length ) {
-      let len = this.dataSource.length;
-      console.log('coco');
-      let x = this.originalStudents.slice(0, 2);
-      let y = this.originalStudents.slice(2, 4);
-      this.dataSource = this.dataSource.concat(y);
-      this.filterArray = this.dataSource;
+      let nextArray = this.originalStudents.slice(this.filterArray.length, this.filterArray.length+3);
 
-      console.log(x, y, this.dataSource);
+      this.filterArray = this.filterArray.concat(nextArray);
+
+      console.log(this.filterArray);
 
     }
   }
