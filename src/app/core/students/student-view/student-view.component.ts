@@ -34,7 +34,7 @@ export class StudentViewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if(this.studentObjId !== 'new') {
       setTimeout(() => {
-        this.studentForm.setValue(this.studentObj);
+        this.studentForm.form.patchValue(this.studentObj);
       }, 100);
     }
   }
